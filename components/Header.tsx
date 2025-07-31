@@ -7,12 +7,12 @@ export default function Header() {
         <p>Zakazivanje servisa klima uređaja brzo i jednostavno</p>
         <Link href="/zakazivanje" className="zakazi-btn">Zakaži servis</Link>
       </div>
-      <div className="main-nav container">
+      <div className="container main-nav">
         <div className="logo">
           <Link href="/">
+            <img src="/images/frost-frigo.png" alt="logo" />
             <span>Frost Frigo</span>
           </Link>
-          <p className="slogan">Profesionalna ugradnja, čišćenje i servis klima</p>
         </div>
         <nav>
           <ul>

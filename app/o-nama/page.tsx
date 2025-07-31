@@ -1,9 +1,11 @@
-const HomePage = () => {
+import HeroSection from "../../components/Hero";
+
+const AboutPage = () => {
     return(
         <>
-        <h1>About</h1>        
+        <HeroSection title="O nama"/>
         </>
     )
 }
 
-export default HomePage;
+export default AboutPage;
