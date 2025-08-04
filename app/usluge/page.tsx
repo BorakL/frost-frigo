@@ -1,8 +1,10 @@
+import HeroSection from "../../components/Hero";
+
 const Usluge = () => {
     return(
-        <div>
-            <h1>Usluge</h1>
-        </div>
+        <>
+        <HeroSection title="Usluge"/>
+        </>
     )
 }
 

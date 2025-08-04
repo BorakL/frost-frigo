@@ -1,7 +1,9 @@
+import HeroSection from "../../components/Hero";
+
 const Kontakt = () => {
     return(
         <>
-        <h1>Kontakt</h1>        
+        <HeroSection title="Kontakt"/>
         </>
     )
 }

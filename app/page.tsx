@@ -38,19 +38,19 @@ const HomePage = () => {
         <section className="bg-light py-5">
         <div className="container">
             <h2 className="text-center mb-4">Naše usluge</h2>
-            <div className="row text-center">
+            <div className="our-services row text-center">
             <div className="col-md-4 mb-4">
-                <img src="/images/ugradnja.jpg" alt="Ugradnja klime" className="img-fluid rounded" />
+                <img src="/images/installing.png" alt="Ugradnja klime" className="img-fluid rounded" />
                 <h5 className="mt-3">Ugradnja</h5>
                 <p>Brza i sigurna montaža klima uređaja svih brendova.</p>
             </div>
             <div className="col-md-4 mb-4">
-                <img src="/images/ciscenje.jpg" alt="Čišćenje klime" className="img-fluid rounded" />
+                <img src="/images/cleaning.png" alt="Čišćenje klime" className="img-fluid rounded" />
                 <h5 className="mt-3">Čišćenje</h5>
                 <p>Detaljno čišćenje i dezinfekcija unutrašnje i spoljne jedinice.</p>
             </div>
             <div className="col-md-4 mb-4">
-                <img src="/images/servis.jpg" alt="Servis klime" className="img-fluid rounded" />
+                <img src="/images/repairing.png" alt="Servis klime" className="img-fluid rounded" />
                 <h5 className="mt-3">Servis</h5>
                 <p>Popravka i redovno održavanje uz garanciju kvaliteta.</p>
             </div>

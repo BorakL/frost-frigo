@@ -11,8 +11,8 @@ export default function HeroSection({ variant = 'page', title, subtitle }: HeroP
     <section className={isHome ? 'hero-section hero--home' : 'hero-section hero--page'}>
       <div className="hero-overlay"> 
         <div className="container hero-content">
-          <h1 className="display-4 fw-bold">{title}</h1>
-          {subtitle && <p className="lead">{subtitle}</p>}
+          <h1 className="display-4 fw-bold slideIn">{title}</h1>
+          {subtitle && <p className="lead slideIn">{subtitle}</p>}
           {isHome && <a href="/zakazivanje" className=" btn btn-primary btn-lg">Zakaži odmah</a>}
         </div>        
       </div>
