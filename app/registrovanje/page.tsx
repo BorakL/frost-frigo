@@ -49,39 +49,60 @@ export default function SignUp() {
   return (
     <>
     <HeroSection title="Registracija"/>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label>Ime:</label>
-        <input {...register("name", { required: "Ime je obavezno" })} />
-        {typeof errors.name?.message === 'string' && <p>{errors.name?.message}</p>}
-      </div>
+    <form onSubmit={handleSubmit(onSubmit)} className="container mt-4 p-4 border rounded shadow-sm bg-light" style={{ maxWidth: '500px' }}>
+  <h3 className="mb-4 text-center">Registruj se</h3>
 
-      <div>
-        <label>Adresa:</label>
-        <input {...register("address", { required: "Adresa je obavezna" })} />
-        {typeof errors.address?.message === 'string' && <p>{errors.address?.message}</p>}
-      </div>
+  <div className="mb-3">
+    <label className="form-label">Ime</label>
+    <input
+      className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+      {...register("name", { required: "Ime je obavezno" })}
+    />
+    {typeof errors.name?.message === 'string' && (
+      <div className="invalid-feedback">{errors.name?.message}</div>
+    )}
+  </div>
 
-      <div>
-        <label>Email:</label>
-        <input {...register("email", { required: "Email je obavezan" })} />
-        {typeof errors.email?.message === 'string' && <p>{errors.email?.message}</p>}
-      </div>
+  <div className="mb-3">
+    <label className="form-label">Adresa</label>
+    <input
+      className={`form-control ${errors.address ? 'is-invalid' : ''}`}
+      {...register("address", { required: "Adresa je obavezna" })}
+    />
+    {typeof errors.address?.message === 'string' && (
+      <div className="invalid-feedback">{errors.address?.message}</div>
+    )}
+  </div>
 
-      <div>
-        <label>Lozinka:</label>
-        <input
-          type="password"
-          {...register("password", {
-            required: "Lozinka je obavezna",
-            minLength: { value: 6, message: "Lozinka mora imati bar 6 karaktera" },
-          })}
-        />
-        {typeof errors.password?.message === 'string' && <p>{errors.password?.message}</p>}
-      </div>
+  <div className="mb-3">
+    <label className="form-label">Email</label>
+    <input
+      type="email"
+      className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+      {...register("email", { required: "Email je obavezan" })}
+    />
+    {typeof errors.email?.message === 'string' && (
+      <div className="invalid-feedback">{errors.email?.message}</div>
+    )}
+  </div>
 
-      <button type="submit">Registruj se</button>
-    </form>
+  <div className="mb-3">
+    <label className="form-label">Lozinka</label>
+    <input
+      type="password"
+      className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+      {...register("password", {
+        required: "Lozinka je obavezna",
+        minLength: { value: 6, message: "Lozinka mora imati bar 6 karaktera" },
+      })}
+    />
+    {typeof errors.password?.message === 'string' && (
+      <div className="invalid-feedback">{errors.password?.message}</div>
+    )}
+  </div>
+
+  <button type="submit" className="btn btn-primary w-100">Registruj se</button>
+</form>
     </>
   );
 }
