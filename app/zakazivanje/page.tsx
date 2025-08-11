@@ -79,9 +79,7 @@ const SchedulingPage = () => {
             />
         </div>
 
-        <button type="submit" className="btn btn-primary w-100">
-            Zakaži
-        </button>
+        <button type="submit" className="btn btn-primary w-100">Zakaži</button>
         </form> 
         </>
     );
