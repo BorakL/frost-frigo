@@ -1,13 +1,10 @@
 'use client'
 
 import { collection, addDoc, Timestamp } from "firebase/firestore";
-import { auth, db } from "../../firebase";
+import { db } from "../../firebase";
 import { useForm } from "react-hook-form";
 import HeroSection from "../../components/Hero";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { onAuthStateChanged, User } from "firebase/auth";
-import Link from "next/link";
+import { useAuth } from "../../context/AuthContext";
 
 interface Appointment {
     userId: string;
@@ -18,10 +15,8 @@ interface Appointment {
 }
 
 const SchedulingPage = () => {
-    const { register, handleSubmit, reset } = useForm<Appointment>();
-    const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState<User | null>(null);
-    const router = useRouter();
+    const { register, handleSubmit, reset } = useForm<Appointment>(); 
+    const {authUser, loading} = useAuth();
 
     async function addAppointment(appointmentData: Appointment) {
         try {
@@ -38,25 +33,17 @@ const SchedulingPage = () => {
     }
 
     const onSubmit = async (data: Appointment) => {
-        if (!user) return;
-        await addAppointment({ ...data, userId: user.uid });
+        if (!authUser) return;
+        await addAppointment({ ...data, userId: authUser.uid });
     };
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-            if (!firebaseUser) {
-                router.push("/login");
-            } else {
-                setUser(firebaseUser);
-            }
-            setLoading(false);
-        });
-
-        return () => unsubscribe();
-    }, [router]);
-
     if (loading) {
-        return <p className="text-center mt-5">Učitavanje...</p>;
+        return(
+        <>
+        <HeroSection title=""/>
+        <p>Provera prijave...</p>
+        </>
+        )
     }
 
     return (
@@ -101,8 +88,11 @@ const SchedulingPage = () => {
                         {...register("notes")}
                     />
                 </div>
-
                 <button type="submit" className="btn btn-primary w-100">Zakaži</button>
+                
+                <p>
+
+                </p>
             </form>
         </>
     );

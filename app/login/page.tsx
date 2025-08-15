@@ -3,11 +3,12 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { useState } from "react";
 import { FirebaseError } from "firebase/app";
 import HeroSection from "../../components/Hero";
 import Link from "next/link";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 interface UserData {
   email: string;
@@ -34,7 +35,13 @@ export default function LoginPage() {
     setFirebaseError("");
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const userRef = doc(db, "clients", user.uid);
+      const snapshot = await getDoc(userRef)
+      if(!snapshot.exists()){
+        await setDoc(userRef, {address:"", phoneNumber: ""})
+      }
       router.push("/klijent");
     } catch (err) {
       const firebaseError = err as FirebaseError;
