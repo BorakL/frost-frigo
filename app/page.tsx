@@ -64,8 +64,6 @@ const HomePage = () => {
             <a href="/zakazivanje" className="btn btn-light btn-lg mt-2">Zakaži servis</a>
         </div>
         </section>
-
-
         </>
     )
 }

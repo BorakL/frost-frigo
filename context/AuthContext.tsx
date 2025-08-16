@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth, db } from "../firebase";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 
 // Firestore dodatni podaci o korisniku
@@ -15,12 +15,14 @@ interface UserData {
 interface AuthContextType {
   authUser: User | null;     // Firebase Auth objekat
   userData: UserData | null; // Dodatni podaci iz Firestore-a
+  logout: () => Promise<void>;
   loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType>({
   authUser: null,
   userData: null,
+  logout: async ()=>{},
   loading: true,
 });
 
@@ -28,6 +30,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [authUser, setAuthUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
+
+    const logout = async () => {
+      try {
+        await signOut(auth);
+        setAuthUser(null);
+        setUserData(null);
+      } catch (err) {
+        console.error("Greška pri odjavi:", err);
+      }
+    };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -54,7 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ authUser, userData, loading }}>
+    <AuthContext.Provider value={{ authUser, userData, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

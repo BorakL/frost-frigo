@@ -5,6 +5,8 @@ import { db } from "../../firebase";
 import { useForm } from "react-hook-form";
 import HeroSection from "../../components/Hero";
 import { useAuth } from "../../context/AuthContext";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 interface Appointment {
     userId: string;
@@ -17,6 +19,14 @@ interface Appointment {
 const SchedulingPage = () => {
     const { register, handleSubmit, reset } = useForm<Appointment>(); 
     const {authUser, loading} = useAuth();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!loading && !authUser) {
+            router.push("/login")
+        }
+    }, [authUser, loading, router]);
+
 
     async function addAppointment(appointmentData: Appointment) {
         try {
