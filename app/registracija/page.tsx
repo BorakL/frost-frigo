@@ -21,6 +21,7 @@ export default function SignUp() {
     name: string,
     address: string,
     email:string,
+    phone:string,
     password: string,
   }
 
@@ -29,13 +30,14 @@ export default function SignUp() {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         data.email,
-        data.password
+        data.password,
       );
       const user = userCredential.user;
       // Čuvamo dodatne informacije o korisniku u Firestore
       await setDoc(doc(db, "clients", user.uid), {
         name: data.name,
         address: data.address,
+        tepephone: data.phone,
         email: data.email
       });
       alert("Uspešna registracija!");
@@ -47,9 +49,9 @@ export default function SignUp() {
   };
 
   return (
-    <>
-    <HeroSection title="Registracija"/>
-    <form onSubmit={handleSubmit(onSubmit)} className="container mt-4 p-4 border rounded shadow-sm bg-light" style={{ maxWidth: '500px' }}>
+  <>
+  <HeroSection title="Registracija"/>
+  <form onSubmit={handleSubmit(onSubmit)} className="container mt-4 p-4 border rounded shadow-sm bg-light" style={{ maxWidth: '500px' }}>
   <h3 className="mb-4 text-center">Registruj se</h3>
 
   <div className="mb-3">
@@ -85,6 +87,25 @@ export default function SignUp() {
       <div className="invalid-feedback">{errors.email?.message}</div>
     )}
   </div>
+
+<div className='mb-3'>
+  <label className="form-label">Telefon</label>
+  <input 
+    type="text" 
+    className={`form-control ${errors.phone ? 'is-invalid' : ''}`}
+    {...register("phone", { 
+      required: "Telefon je obavezan",
+      pattern: {
+        value: /^(\+3816\d{7,8}|06\d{7,8})$/, 
+        message: "Unesite validan broj telefona (npr. 0612345678 ili +381612345678)"
+      }
+    })}
+  />
+  {typeof errors.phone?.message === "string" && (
+    <div className="invalid-feedback">{errors.phone?.message}</div>
+  )}
+</div>
+
 
   <div className="mb-3">
     <label className="form-label">Lozinka</label>
