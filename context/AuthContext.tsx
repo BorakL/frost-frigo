@@ -2,14 +2,14 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 
 // Firestore dodatni podaci o korisniku
 interface UserData {
   address?: string;
-  phoneNumber?: string; 
-  email?:string;
-  name?:string;
+  phoneNumber?: string;
+  email?: string;
+  name?: string;
 }
 
 interface AuthContextType {
@@ -22,7 +22,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
   authUser: null,
   userData: null,
-  logout: async ()=>{},
+  logout: async () => {},
   loading: true,
 });
 
@@ -31,38 +31,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
 
-    const logout = async () => {
-      try {
-        await signOut(auth);
-        setAuthUser(null);
-        setUserData(null);
-      } catch (err) {
-        console.error("Greška pri odjavi:", err);
-      }
-    };
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      setAuthUser(null);
+      setUserData(null);
+    } catch (err) {
+      console.error("Greška pri odjavi:", err);
+    }
+  };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
         setAuthUser(firebaseUser);
 
-        // Učitaj podatke iz Firestore-a
+        // 🔥 real-time listener za user dokument
         const docRef = doc(db, "clients", firebaseUser.uid);
-        const snapshot = await getDoc(docRef);
-        if (snapshot.exists()) {
+        const unsubscribeDoc = onSnapshot(docRef, (snapshot) => {
+          if (snapshot.exists()) {
             setUserData(snapshot.data() as UserData);
-        } else {
-          setUserData(null);
-        }
+          } else {
+            setUserData(null);
+          }
+          setLoading(false);
+        });
+
+        // cleanup listenera kad se korisnik odjavi ili komponenta unmount-uje
+        return () => unsubscribeDoc();
       } else {
         setAuthUser(null);
         setUserData(null);
+        setLoading(false);
       }
-
-      setLoading(false);
     });
 
-    return () => unsubscribe();
+    return () => unsubscribeAuth();
   }, []);
 
   return (

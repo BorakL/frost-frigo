@@ -22,7 +22,7 @@ type FormData = {
 type Appointment = {
   id: string;
   date: string;
-  time: string;
+  timeSlot: string;
   service: string;
   notes?: string;
   status: string;
@@ -40,7 +40,7 @@ const ProfilePage = () => {
   const [hasMore, setHasMore] = useState(true);
   const pageSize = 5;
 
-  const { register, handleSubmit, reset } = useForm<FormData>({
+  const { register, handleSubmit, reset, formState:{errors} } = useForm<FormData>({
     defaultValues: {
       name: "",
       email: "",
@@ -61,8 +61,8 @@ const ProfilePage = () => {
   useEffect(() => {
     if (userData) {
       reset({
-        name: userData.name || "",
-        email: userData.email || "",
+        name: userData.name || authUser?.displayName || "",
+        email: userData.email || authUser?.email || "",
         address: userData.address || "",
         phoneNumber: userData.phoneNumber || "",
       });
@@ -113,8 +113,15 @@ const ProfilePage = () => {
           id: doc.id,
           ...doc.data(),
         })) as Appointment[];
+        console.log("newData",newData)
 
-        setAppointments(prev => [...prev, ...newData]);
+        setAppointments(prev => {
+          const all = [...prev, ...newData];
+          const unique = all.filter(
+            (item, index, self) => index === self.findIndex(a => a.id === item.id)
+          );
+          return unique;
+        });
         setLastDoc(snap.docs[snap.docs.length - 1]);
         setHasMore(snap.docs.length === pageSize);
       } else {
@@ -149,7 +156,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      <HeroSection title={userData?.name || "Moj profil"} />
+      <HeroSection title={userData?.name || authUser?.displayName || ""} />
 
       <div className="container mt-4">
         <div className="row justify-content-center">
@@ -157,6 +164,7 @@ const ProfilePage = () => {
             <div className="card shadow-sm mb-4">
               <div className="card-body">
                 <form onSubmit={handleSubmit(onSubmit)}>
+                  
                   <div className="mb-3">
                     <label className="form-label">Email</label>
                     <input
@@ -167,22 +175,43 @@ const ProfilePage = () => {
                     />
                   </div>
 
+                  {/* Adresa */}
                   <div className="mb-3">
                     <label className="form-label">Adresa</label>
                     <input
-                      {...register("address")}
-                      className="form-control"
-                      placeholder="Unesi adresu"
+                      className={`form-control ${errors.address ? "is-invalid" : ""}`}
+                      {...register("address", {
+                        required: "Adresa je obavezna",
+                        pattern: {
+                          value: /^[A-Za-zČĆŽŠĐčćžšđ\s]+ \d+[A-Za-z0-9/-]*,?\s*[A-Za-zČĆŽŠĐčćžšđ\s]*$/,
+                          message: "Unesi adresu u formatu: Ulica broj[, grad]",
+                        },
+                      })}
+                      placeholder="npr. Bulevar kralja Aleksandra 73, Beograd"
                     />
+                    {typeof errors.address?.message === "string" && (
+                      <div className="invalid-feedback">{errors.address?.message}</div>
+                    )}
                   </div>
 
+                  {/* Telefon */}
                   <div className="mb-3">
-                    <label className="form-label">Telefon</label>
+                    <label className="form-label">Telefon:</label>
                     <input
-                      {...register("phoneNumber")}
+                      type="text"
                       className="form-control"
+                      {...register("phoneNumber", {
+                        required: "Telefon je obavezan.",
+                        pattern: {
+                          value: /^[0-9+\- ]{6,15}$/,
+                          message: "Unesi validan broj telefona.",
+                        },
+                      })}
                       placeholder="Unesi broj telefona"
                     />
+                    {errors.phoneNumber && (
+                      <div className="text-danger">{errors.phoneNumber.message}</div>
+                    )}
                   </div>
 
                   <div className="d-flex justify-content-between">
@@ -220,18 +249,14 @@ const ProfilePage = () => {
                           <th>Datum</th>
                           <th>Vreme</th>
                           <th>Usluga</th>
-                          <th>Status</th>
                         </tr>
                       </thead>
                       <tbody>
                         {appointments.map(app => (
                           <tr key={app.id}>
                             <td>{app.date}</td>
-                            <td>{app.time}</td>
+                            <td>{app.timeSlot}</td>
                             <td>{app.service}</td>
-                            <td>
-                              <span className="badge bg-secondary">{app.status}</span>
-                            </td>
                           </tr>
                         ))}
                       </tbody>

@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import Navigation from './Navigation';
 import { useAuth } from '../context/AuthContext';
+import ZakaziButton from './AppointmentButton';
 
 export default function Header() {
   const{authUser} = useAuth();
@@ -16,8 +17,7 @@ export default function Header() {
               <i className="bi bi-person-fill"></i>
             </Link>
           )}
-          
-          <Link href="/zakazivanje" className="zakazi-btn">Zakaži servis</Link>
+          <ZakaziButton/>
         </div>
       </div>
       <Navigation/>    

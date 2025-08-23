@@ -8,6 +8,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
 import { FirebaseError } from 'firebase/app';
 import HeroSection from '../../components/Hero';
+import { useRouter } from 'next/navigation';
 
 export default function SignUp() {
   const {
@@ -16,12 +17,12 @@ export default function SignUp() {
     formState: { errors },
   } = useForm<UserData>();
 
-
+  const router = useRouter();
   interface UserData {
     name: string,
     address: string,
     email:string,
-    phone:string,
+    phoneNumber:string,
     password: string,
   }
 
@@ -37,10 +38,11 @@ export default function SignUp() {
       await setDoc(doc(db, "clients", user.uid), {
         name: data.name,
         address: data.address,
-        tepephone: data.phone,
+        phoneNumber: data.phoneNumber,
         email: data.email
       });
-      alert("Uspešna registracija!");
+      // alert("Uspešna registracija!");
+      router.push("/zakazivanje");
     } catch (err) {
         const firebaseError = err as FirebaseError;
         console.error("Greška pri registraciji:", firebaseError.message);
@@ -65,16 +67,23 @@ export default function SignUp() {
     )}
   </div>
 
-  <div className="mb-3">
-    <label className="form-label">Adresa</label>
-    <input
-      className={`form-control ${errors.address ? 'is-invalid' : ''}`}
-      {...register("address", { required: "Adresa je obavezna" })}
-    />
-    {typeof errors.address?.message === 'string' && (
-      <div className="invalid-feedback">{errors.address?.message}</div>
-    )}
-  </div>
+<div className="mb-3">
+  <label className="form-label">Adresa</label>
+  <input
+    className={`form-control ${errors.address ? "is-invalid" : ""}`}
+    {...register("address", {
+      required: "Adresa je obavezna",
+      pattern: {
+        value: /^[A-Za-zČĆŽŠĐčćžšđ\s]+ \d+[A-Za-z0-9/-]*,?\s*[A-Za-zČĆŽŠĐčćžšđ\s]*$/,
+        message: "Unesi adresu u formatu: Ulica broj[, grad]",
+      },
+    })}
+    placeholder="npr. Bulevar kralja Aleksandra 73, Beograd"
+  />
+  {typeof errors.address?.message === "string" && (
+    <div className="invalid-feedback">{errors.address?.message}</div>
+  )}
+</div>
 
   <div className="mb-3">
     <label className="form-label">Email</label>
@@ -92,8 +101,8 @@ export default function SignUp() {
   <label className="form-label">Telefon</label>
   <input 
     type="text" 
-    className={`form-control ${errors.phone ? 'is-invalid' : ''}`}
-    {...register("phone", { 
+    className={`form-control ${errors.phoneNumber ? 'is-invalid' : ''}`}
+    {...register("phoneNumber", { 
       required: "Telefon je obavezan",
       pattern: {
         value: /^(\+3816\d{7,8}|06\d{7,8})$/, 
@@ -101,8 +110,8 @@ export default function SignUp() {
       }
     })}
   />
-  {typeof errors.phone?.message === "string" && (
-    <div className="invalid-feedback">{errors.phone?.message}</div>
+  {typeof errors.phoneNumber?.message === "string" && (
+    <div className="invalid-feedback">{errors.phoneNumber?.message}</div>
   )}
 </div>
 
