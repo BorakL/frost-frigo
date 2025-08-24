@@ -45,7 +45,7 @@ export default function SignUp() {
       router.push("/zakazivanje");
     } catch (err) {
         const firebaseError = err as FirebaseError;
-        console.error("Greška pri registraciji:", firebaseError.message);
+        console.error("Greška pri registraciji:", firebaseError);
         alert(firebaseError.message);
     }
   };
@@ -85,17 +85,17 @@ export default function SignUp() {
   )}
 </div>
 
-  <div className="mb-3">
-    <label className="form-label">Email</label>
-    <input
-      type="email"
-      className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-      {...register("email", { required: "Email je obavezan" })}
-    />
-    {typeof errors.email?.message === 'string' && (
-      <div className="invalid-feedback">{errors.email?.message}</div>
-    )}
-  </div>
+<div className="mb-3">
+  <label className="form-label">Email</label>
+  <input
+    type="email"
+    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+    {...register("email", { required: "Email je obavezan" })}
+  />
+  {typeof errors.email?.message === 'string' && (
+    <div className="invalid-feedback">{errors.email?.message}</div>
+  )}
+</div>
 
 <div className='mb-3'>
   <label className="form-label">Telefon</label>
