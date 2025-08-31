@@ -208,6 +208,35 @@ footer div:last-child {
   animation: slideIn 0.8s ease-out forwards;
 }
 
+.services {
+  padding: 40px;
+  text-align: center;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px; /* margine između kvadrata */
+  margin-top: 30px;
+}
+
+.service-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 40px 20px;
+  font-size: 18px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  background: #fff;
+}
+
+
 @keyframes slideIn {
   to {
     opacity: 1;

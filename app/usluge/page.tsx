@@ -1,55 +1,72 @@
 import HeroSection from "../../components/Hero";
 
 const Usluge = () => {
-    const services = [
+  const services = [
     {
-      title: "Servis i popravka",
+      title: "Servis klima uređaja",
       description:
-        "Brz i pouzdan servis svih tipova rashladnih uređaja za domaćinstva. Naši majstori dolaze na vašu adresu i rešavaju problem u najkraćem roku.",
-      icon: "🛠️",
+        "Redovan servis klima uređaja obezbeđuje dugotrajan rad i manju potrošnju struje. Naši stručnjaci dolaze na vašu adresu i vrše kompletnu proveru uređaja.",
+      image: "/images/servis.jpg",
     },
     {
-      title: "Ugradnja novih uređaja",
+      title: "Montaža klima uređaja",
       description:
-        "Profesionalna ugradnja frižidera, zamrzivača i klima uređaja uz garanciju i savete za pravilno korišćenje i održavanje.",
-      icon: "⚡",
+        "Profesionalna ugradnja klima uređaja uz poštovanje svih standarda i preporuka proizvođača. Garantujemo bezbedan i pouzdan rad.",
+      image: "/images/montaza.jpg",
     },
     {
-      title: "Preventivno održavanje",
+      title: "Demontaža klima uređaja",
       description:
-        "Redovnim pregledom i čišćenjem rashladnih uređaja sprečavate kvarove i produžavate vek trajanja uređaja.",
-      icon: "✅",
+        "Stručno uklanjanje postojećeg klima uređaja bez oštećenja zidova i instalacija. Idealno prilikom renoviranja ili selidbe.",
+      image: "/images/demontaza.jpg",
     },
     {
-      title: "Hitne intervencije",
+      title: "Popravka klima uređaja",
       description:
-        "Dostupni smo za hitne pozive – kada frižider ili zamrzivač otkaže, stižemo što je pre moguće da rešimo problem.",
-      icon: "🚀",
+        "Brza i pouzdana dijagnostika i popravka svih kvarova na klima uređajima. Koristimo originalne delove i pružamo garanciju na rad.",
+      image: "/images/popravka.jpg",
+    },
+    {
+      title: "Čišćenje klima uređaja",
+      description:
+        "Temeljno čišćenje filtera i unutrašnjih delova klima uređaja sprečava širenje bakterija i obezbeđuje zdraviji vazduh u prostoru.",
+      image: "/images/ciscenje.jpg",
     },
   ];
 
-    return(
-        <>
-      <HeroSection title="Usluge" />
-      <div className="max-w-6xl mx-auto text-center px-4 py-12">
+  return (
+    <>
+      <HeroSection title="Naše usluge" />
+      <section className="services">
+      <div className="services-grid">
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className="services-card"
+          >
+            {/* Slika kao ikona/usluga */}
+            <div className="flex justify-center -mt-12"> 
+              <img
+                src={service.image}
+                alt={service.title}
+                className="w-full h-full object-cover"
+              /> 
+            </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition transform hover:scale-105"
-            >
-              <div className="text-5xl mb-4">{service.icon}</div>
-              <h3 className="text-xl font-semibold text-gray-700 mb-3">
+            {/* Tekstualni deo */} 
+              <h3>
                 {service.title}
               </h3>
-              <p className="text-gray-600">{service.description}</p>
-            </div>
-          ))}
-        </div>
+              <p>
+                {service.description}
+              </p> 
+          </div>
+        ))}
       </div>
+      </section>
+     
     </>
-    )
-}
+  );
+};
 
 export default Usluge;
