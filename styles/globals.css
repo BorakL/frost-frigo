@@ -231,10 +231,30 @@ footer div:last-child {
   transition: transform 0.2s ease;
 }
 
-.service-card:hover {
-  transform: translateY(-5px);
-  background: #fff;
+.services-card img{
+  width: 250px;
 }
+
+.services-card {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.services-card.fade-in {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 
 @keyframes slideIn {

@@ -54,6 +54,21 @@ const SchedulingPage = () => {
     }
   }, [userData, setValue]);
 
+  useEffect(() => {
+    if (!loading && !authUser) {
+      router.push("/login");
+    }
+  }, [authUser, loading, router]);
+
+  if (loading) {
+    return (
+      <>
+        <HeroSection title="" />
+        <p>Provera prijave...</p>
+      </>
+    );
+  }
+
   const today = new Date();
   const tommorow = new Date(today);
   tommorow.setDate(today.getDate()+1);
@@ -87,10 +102,10 @@ const SchedulingPage = () => {
     );
   }
 
-  if (!authUser) {
-    router.push("/login");
-    return null; // spreči prikaz stranice dok redirect traje
-  }
+  // if (!authUser) {
+  //   router.push("/login");
+  //   return null; // spreči prikaz stranice dok redirect traje
+  // }
 
   return (
     <>
