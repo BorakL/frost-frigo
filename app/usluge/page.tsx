@@ -45,7 +45,7 @@ const Usluge = () => {
             className="services-card fade-in"
           >
             {/* Slika kao ikona/usluga */}
-            <div className="flex justify-center -mt-12"> 
+            <div className="flex justify-center mb-3 -mt-12"> 
               <img
                 src={service.image}
                 alt={service.title}
