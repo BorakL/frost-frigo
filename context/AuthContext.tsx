@@ -10,11 +10,13 @@ interface UserData {
   phoneNumber?: string;
   email?: string;
   name?: string;
+  role?: "admin" | "user";  // 👈 dodali smo polje role
 }
 
 interface AuthContextType {
   authUser: User | null;     // Firebase Auth objekat
   userData: UserData | null; // Dodatni podaci iz Firestore-a
+  isAdmin: boolean;          // 👈 helper za admina
   logout: () => Promise<void>;
   loading: boolean;
 }
@@ -22,6 +24,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
   authUser: null,
   userData: null,
+  isAdmin: false,
   logout: async () => {},
   loading: true,
 });
@@ -69,8 +72,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => unsubscribeAuth();
   }, []);
 
+  const isAdmin = userData?.role === "admin"; // 👈 ovde proveravaš
+
   return (
-    <AuthContext.Provider value={{ authUser, userData, logout, loading }}>
+    <AuthContext.Provider value={{ authUser, userData, isAdmin, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
