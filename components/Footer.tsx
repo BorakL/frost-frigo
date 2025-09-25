@@ -9,7 +9,6 @@ export default function Footer() {
           <p>Pružamo profesionalne usluge montaže, čišćenja i servisa klima uređaja.</p>
         </div>
         <div>
-          <h4>Brze veze</h4>
           <ul>
             <li><Link href="/">Početna</Link></li>
             <li><Link href="/usluge">Naše usluge</Link></li>
