@@ -1,3 +1,4 @@
+import Image from "next/image";
 import HeroSection from "../../components/Hero";
 
 const Usluge = () => {
@@ -46,10 +47,12 @@ const Usluge = () => {
           >
             {/* Slika kao ikona/usluga */}
             <div className="flex justify-center mb-3 -mt-12"> 
-              <img
+              <Image
                 src={service.image}
                 alt={service.title}
                 className="w-full h-full object-cover"
+                width={100}
+                height={200}
               /> 
             </div>
 

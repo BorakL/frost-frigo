@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react"; 
 
 export default function Galerija() {
@@ -30,12 +31,14 @@ export default function Galerija() {
       {/* GRID GALERIJA */}
       <div className="grid grid-cols-3 gap-2">
         {images.map((num, index) => (
-          <img
+          <Image
             key={index}
             src={`/images/galerija/${num}.jpg`}
             alt={`Thumbnail ${num}`}
             className="cursor-pointer object-cover w-full h-40 rounded-lg"
             onClick={() => openModal(index)}
+            width={100}
+            height={100}
           />
         ))}
       </div>
@@ -57,10 +60,12 @@ export default function Galerija() {
             &#8249;
           </button>
 
-          <img
+          <Image
             src={`/images/galerija/${images[currentIndex]}.jpg`}
             alt={`Large ${images[currentIndex]}`}
             className="max-h-[80vh] max-w-[90vw] object-contain rounded-lg shadow-lg"
+            width={100}
+            height={100}
           />
 
           <button

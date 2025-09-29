@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react"; 
 import HeroSection from "../../components/Hero";
+import Image from "next/image";
 
 export default function Galerija() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -34,12 +35,14 @@ export default function Galerija() {
       <div className="row g-3">
         {images.map((num, index) => (
           <div key={index} className="col-6 col-md-4 col-lg-3">
-            <img
+            <Image
               src={`/images/galerija/${num}.jfif`}
               alt={`Thumbnail ${num}`}
               className="img-fluid rounded shadow-sm"
               style={{ cursor: "pointer", height: "200px", objectFit: "cover", width: "100%" }}
               onClick={() => openModal(index)}
+              width={100}
+              height={100}
             />
           </div>
         ))}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import HeroSection from "../components/Hero";
 
 const HomePage = () => {
@@ -40,17 +41,20 @@ const HomePage = () => {
             <h2 className="text-center mb-4">Naše usluge</h2>
             <div className="our-services row text-center">
             <div className="col-md-4 mb-4">
-                <img src="/images/installing.png" alt="Ugradnja klime" className="img-fluid rounded" />
+                <Image src="/images/installing.png" alt="Ugradnja klime" className="img-fluid rounded" height={100} width={100}/>
+                {/* <img src="/images/installing.png" alt="Ugradnja klime" className="img-fluid rounded" /> */}
                 <h5 className="mt-3">Ugradnja</h5>
                 <p>Brza i sigurna montaža klima uređaja svih brendova.</p>
             </div>
             <div className="col-md-4 mb-4">
-                <img src="/images/cleaning.png" alt="Čišćenje klime" className="img-fluid rounded" />
+                <Image src="/images/cleaning.png" alt="Čišćenje klime" className="img-fluid rounded" height={100} width={100} />
+                {/* <img src="/images/cleaning.png" alt="Čišćenje klime" className="img-fluid rounded" /> */}
                 <h5 className="mt-3">Čišćenje</h5>
                 <p>Detaljno čišćenje i dezinfekcija unutrašnje i spoljne jedinice.</p>
             </div>
             <div className="col-md-4 mb-4">
-                <img src="/images/repairing.png" alt="Servis klime" className="img-fluid rounded" />
+                <Image src="/images/repairing.png" alt="Servis klime" className="img-fluid rounded" height={100} width={100} />
+                {/* <img src="/images/repairing.png" alt="Servis klime" className="img-fluid rounded" /> */}
                 <h5 className="mt-3">Servis</h5>
                 <p>Popravka i redovno održavanje uz garanciju kvaliteta.</p>
             </div>
