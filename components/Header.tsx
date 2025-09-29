@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import ZakaziButton from './AppointmentButton';
 
 export default function Header() {
-  const{authUser} = useAuth();
+  const{authUser, isAdmin} = useAuth();
 
   return (
     <header className="header">
@@ -13,9 +13,9 @@ export default function Header() {
         <p>Zakazivanje servisa klima uređaja brzo i jednostavno</p>
         <div className="btn-group">
           {authUser && (
-            <Link href="/klijent" className="zakazi-btn">
-              <i className="bi bi-person-fill"></i>
-            </Link>
+          <Link href={`/${isAdmin ? "admin" : "klijent"}`} className="zakazi-btn">
+            <i className="bi bi-person-fill"></i>
+          </Link>
           )}
           <ZakaziButton/>
         </div>

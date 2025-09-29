@@ -20,11 +20,12 @@ body {
 .header .zakazi-btn {
   background-color: #f77f00;
   color: white;
-  padding: 0.4rem 1rem;
+  padding: 1rem;
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
   margin-left: 8px;
+  text-align: center;
 }
 
 .header .zakazi-btn:hover {
@@ -132,6 +133,27 @@ body {
 
 .hero--page {
   height: auto;
+}
+
+/* Manji ekrani */
+@media (max-width: 768px) {
+  .hero-section {
+    height: 60vh; /* smanjena visina */
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    height: auto; /* još manja visina na vrlo malim ekranima */
+  }
+
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
 }
 
 .our-services img{
@@ -266,12 +288,66 @@ footer div:last-child {
 
 @media (max-width: 768px) {
   .main-nav {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     gap: 1rem;
   }
 
   .footer-top {
     flex-direction: column;
+  }
+}
+
+.hamburger {
+  display: none;
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+/* Desktop */
+.nav-links ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    background: #222;
+    padding: 15px;
+    border-radius: 8px;
+    width:80%;
+    text-align: center;
+    font-size: 1.4em;
+  }
+
+  .nav-links.open {
+    display: block;
+  }
+
+  .nav-links ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .nav-links a {
+    color: white;
+    display: block;
   }
 }
