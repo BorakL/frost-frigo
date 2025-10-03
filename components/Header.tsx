@@ -9,12 +9,11 @@ export default function Header() {
 
   return (
     <header className="header">
-      <div className="top-bar">
-        <p>Zakazivanje servisa klima uređaja brzo i jednostavno</p>
-        <div className="btn-group">
+      <div className="top-bar d-flex justify-content-end">
+        <div>
           {authUser && (
-          <Link href={`/${isAdmin ? "admin" : "klijent"}`} className="zakazi-btn">
-            <i className="bi bi-person-fill"></i>
+          <Link href={`/${isAdmin ? "admin" : "klijent"}`} >
+            <button className="zakazi-btn btn btn-light btn-lg mt-2"><i className="bi bi-person-fill"></i></button>
           </Link>
           )}
           <ZakaziButton/>

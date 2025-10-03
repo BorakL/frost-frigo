@@ -12,7 +12,7 @@ export default function Footer() {
           <ul>
             <li><Link href="/">Početna</Link></li>
             <li><Link href="/usluge">Naše usluge</Link></li>
-            <li><Link href="/zakazivanje">Zakaži servis</Link></li>
+            <li><Link href="/galerija">Galerija</Link></li>
             <li><Link href="/kontakt">Kontakt</Link></li>
           </ul>
         </div>

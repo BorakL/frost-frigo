@@ -1,3 +1,5 @@
+import ZakaziButton from "./AppointmentButton";
+
 type HeroProps = {
   variant?: 'home' | 'page';
   title: string;
@@ -13,7 +15,8 @@ export default function HeroSection({ variant = 'page', title, subtitle }: HeroP
         <div className="container hero-content">
           <h1 className="display-4 fw-bold slideIn">{title}</h1>
           {subtitle && <p className="lead slideIn">{subtitle}</p>}
-          {isHome && <a href="/zakazivanje" className=" btn btn-primary btn-lg">Zakaži odmah</a>}
+          {/* {isHome && <a href="/zakazivanje" className=" btn btn-primary btn-lg">Zakaži odmah</a>} */}
+          {isHome && <ZakaziButton/>}
         </div>        
       </div>
     </section>

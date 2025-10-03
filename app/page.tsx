@@ -1,5 +1,6 @@
 import Image from "next/image";
 import HeroSection from "../components/Hero";
+import ZakaziButton from "../components/AppointmentButton";
 
 const HomePage = () => {
     return(
@@ -65,7 +66,8 @@ const HomePage = () => {
         <div className="container">
             <h2 className="mb-3">Vaš klima uređaj zaslužuje osveženje!</h2>
             <p className="lead">Ne čekajte leto – zakažite servis još danas.</p>
-            <a href="/zakazivanje" className="btn btn-light btn-lg mt-2">Zakaži servis</a>
+            {/* <a href="/zakazivanje" className="btn btn-light btn-lg mt-2">Zakaži servis</a> */}
+            <ZakaziButton/>
         </div>
         </section>
         </>

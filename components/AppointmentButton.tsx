@@ -1,3 +1,5 @@
+'use client'
+
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 
@@ -14,7 +16,7 @@ const ZakaziButton = ()=>{
     };
 
     return(
-        <button onClick={handleZakaziClick} className="zakazi-btn">
+        <button onClick={handleZakaziClick} className="zakazi-btn btn btn-light btn-lg mt-2">
           Zakaži servis
         </button>
     )
