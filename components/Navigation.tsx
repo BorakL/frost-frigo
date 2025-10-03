@@ -65,9 +65,7 @@ const Navigation = () => {
 
       {/* Kontakt info / dugme */}
       {!isSticky ? (
-        <div className="kontakt-info">
-          <a href="tel:+381601234567">📞 +381 60 123 4567</a>
-        </div>
+        <div className="kontakt-info"> 📞 +381 60 123 4567</div>
       ) : (
         <ZakaziButton />
       )}

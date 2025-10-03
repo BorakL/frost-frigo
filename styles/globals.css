@@ -240,7 +240,7 @@ footer div:last-child {
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 40px; /* margine između kvadrata */
   margin-top: 30px;
 }
